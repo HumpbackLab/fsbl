@@ -338,8 +338,13 @@ void sys_pll_nd(int vc_overdrive)
 	// set div, src_mux of clk_c906_1: [20:16]div_factor=2, [9:8]clk_src = 2 (disppll), 1188/2 = 594MHz
 	mmio_write_32(0x03002138, 0x00020209);
 #else
+#ifdef TIDESENSE_A53_1GHZ
+	/* Same 1 GHz MPLL setting as the SDK OD path, CPU only. */
+	mmio_write_32(0x03002908, 0x05508101);
+#else
 	// set mpll = 800MHz
 	mmio_write_32(0x03002908, 0x00408101);
+#endif
 
 	// set div, src_mux of clk_a53: [20:16]div_factor=1, [9:8]clk_src = 3 (mpll)
 	mmio_write_32(0x03002040, 0x00010309);

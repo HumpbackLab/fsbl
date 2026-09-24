@@ -194,6 +194,11 @@ $(eval $(call add_define_val,RTOS_FAST_IMAGE_TYPE,${RTOS_FAST_IMAGE_TYPE}))
 $(eval $(call add_define_val,RTOS_DUMP_PRINT_ENABLE,$(call yn10,${RTOS_DUMP_PRINT_ENABLE})))
 endif
 
+# TideSense A53-only frequency selection; keep normal-mode peripheral clocks.
+ifeq ($(PROJECT_FULLNAME),sg2002_tidesense_arm64_sd)
+$(eval $(call add_define,TIDESENSE_A53_1GHZ))
+endif
+
 ifeq ($(OD_CLK_SEL),y)
 $(eval $(call add_define,OD_CLK_SEL))
 endif
